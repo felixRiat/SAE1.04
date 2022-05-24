@@ -1,0 +1,52 @@
+nav > a{
+    text-decoration: none;
+}
+.btn, .accueil {
+    font-size: 1.2rem;
+    margin: 30px;
+}
+label {
+    font-size: 1.1rem;
+}
+.label-checkbox {
+    text-transform: capitalize;
+}
+.filtre .input-group input[type="number"] {
+    width: 100px;
+}
+.flashes {
+    padding: 5px;
+    margin : 5px;
+    background-color: green;
+}
+td img {
+    height: 100px;
+}
+th {
+    font-size: 1.3rem;
+}
+td {
+    font-size: 1.1rem;
+}
+textarea {
+    resize: none;
+    height: 100px;
+}
+.table_type_plat th {
+    width: 640px;
+}
+.table_type_plat td {
+    text-transform: capitalize;
+}
+
+thead tr:nth-child(1) {
+    background-color: #FFC300;
+}
+
+tbody tr:nth-child(2n) {
+    background-color: #FFFFFF;
+}
+
+tbody tr:nth-child(2n + 1) {
+    background-color: #F0F0F0;
+}

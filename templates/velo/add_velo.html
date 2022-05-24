@@ -1,0 +1,42 @@
+{%  extends  'layout.html' %}
+
+{% block title %}
+    <title>Ajouter un vélo</title>
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h2>Ajouter un vélo</h2>
+        {% if error %}
+            <p class="error"><strong>Error : </strong>{{ error }}</p>
+        {% endif %}
+        <form method="post" action="/velo/add">
+            <fieldset>
+                <legend>Ajouter un velo</legend>
+                <label for="date_achat">Date d'achat</label>
+                <input type="date" size="18" value="" name="date_achat" placeholder="Saisir la date d'achat">
+                <br>
+                <label for="prix_par_mois">Prix de location(par mois)</label>
+                <input type="number" size="18" value="" name="prix_par_mois" placeholder="Entrez le prix de location">
+                <br>
+                <label for="code_marque">Marque :</label>
+                <select name="code_marque" required>
+                <option value="" disabled selected hidden>Please Choose...</option>
+                    {% for marque in marques %}
+                        <option value="{{ marque.code_marque }}">{{ marque.libelle_marque }}</option>
+                    {% endfor %}
+                </select>
+                <br>
+                <label for="type_velo">Type de vélo</label>
+                <select name="type_velo" required>
+                <option value="" disabled selected hidden>Please Choose...</option>
+                    {% for type in types_velo %}
+                        <option value="{{ type.id_type_velo }}">{{ type.libelle_type }}</option>
+                    {% endfor %}
+                </select>
+                <br>
+                <input type="submit" value="Ajouter" name="Valider">
+            </fieldset>
+        </form>
+    </div>
+{% endblock %}

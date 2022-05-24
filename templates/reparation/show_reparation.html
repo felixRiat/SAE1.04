@@ -1,0 +1,54 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    <title>Afficher les réparations</title>
+{% endblock %}
+
+{% block body %}
+<h2>Réparation(s)</h2>
+    <p class="lienAjout">
+        <a href="/reparation/add">Ajouter une réparation</a>
+    </p>
+<br>
+<br>
+
+<table class="table text-center">
+    <thead class="bg-light">
+        <tr>
+            <th>id</th>
+            <th>libelle</th>
+            <th>date de réparation</th>
+            <th>description</th>
+            <th>id du vélo</th>
+            <th>Opérations</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% if reparation | length >= 1 %}
+        {% for ligne in reparation %}
+           <tr>
+                <td>{{ ligne.id_reparation }}</td>
+                <td>{{ ligne.libelle_reparation }}</td>
+                <td>{{ ligne.date_reparation }}</td>
+                <td>{{ ligne.descriptif }}</td>
+                <td>{{ ligne.id_velo }}</td>
+                <td>
+                    <div class="lienEditSup">
+                        <a href="/reparation/edit/{{ ligne.id_reparation }}">editer</a>
+                    </div>
+                    <div class="lienEditSup">
+                        <a href="/reparation/delete?id_reparation={{ ligne.id_reparation }}" onclick="return confirm('Êtes-vous sûr ?')" >supprimer</a>
+                    </div>
+                </td>
+           </tr>
+        {% endfor %}
+    {% else %}
+            <tr>
+                  <td>
+                      pas de réparation
+                  </td>
+           </tr>
+    {% endif %}
+    </tbody>
+</table>
+{% endblock %}

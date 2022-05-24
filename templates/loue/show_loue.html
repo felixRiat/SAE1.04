@@ -1,0 +1,91 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    <title>Afficher les locations</title>
+{% endblock %}
+
+{% block body %}
+    <h1 class="text-success text-center mb-5">Locations</h1>
+    <form method="post" action="/loue/show">
+        <div class="container mb-5 bg-light">
+            <h2 class="text-primary text-center">Etat</h2>
+            <p>Cet état sert à voir le nombre de jour que dure une location.
+                Il est possible de filtrer cet état en modifiant les dates de début et de fin de location durant lesquels des locations ont lieues.</p>
+            <div class="row">
+                <div class="col-xl-6">
+                    <label for="date_location">Début de location</label>
+                    <input type="date" name="date_location" id="date_location" class="form-control">
+                </div>
+                <div class="col-xl-6">
+                    <label for="date_retour">Date de retour</label>
+                    <input type="date" name="date_retour" id="date_retour" class="form-control">
+                </div>
+                <div class="text-center">
+                    <button type="submit" class="btn btn-success">Afficher</button>
+                </div>
+                <div class="col-xl-12">
+                    {% if etat | length >= 1 %}
+                        <table class="table text-center">
+                            <thead  >
+                                <tr>
+                                    <th>id_etudiant</th>
+                                    <th>id_velo</th>
+                                    <th>Début location</th>
+                                    <th>Fin location</th>
+                                    <th>Durée totale de la location</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for ligne in etat %}
+                                    <tr>
+                                        <td>{{ ligne.id_etudiant }}</td>
+                                        <td>{{ ligne.id_velo }}</td>
+                                        <td>{{ ligne.date_location }}</td>
+                                        <td>{{ ligne.date_retour }}</td>
+                                        <td>{{ ligne.duree_location }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                     {% else %}
+                        <p>Aucune location de ce type</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </form>
+
+    {% if loue | length >= 1 %}
+        <table class="table text-center">
+            <thead class="bg-light">
+                <tr>
+                    <th>id_velo</th>
+                    <th>id_etudiant</th>
+                    <th>date_location</th>
+                    <th>caution</th>
+                    <th>Opérations</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for ligne in loue %}
+                    <tr>
+                        <td>{{ ligne.id_velo }}</td>
+                        <td>{{ ligne.id_etudiant }}</td>
+                        <td>{{ ligne.date_location }}</td>
+                        <td>{{ ligne.caution }} €</td>
+                        <td>
+                            <a href="/loue/edit/{{ ligne.id_velo }}/{{ ligne.id_etudiant }}/{{ ligne.date_location }}" class="btn btn-primary">Modifier</a>
+                            <a href="/loue/delete?id_velo={{ ligne.id_velo }}&amp;id_etudiant={{ ligne.id_etudiant }}&amp;date_location={{ ligne.date_location }}" onclick="return confirm('Are you sure?')"
+                               class="btn btn-primary">Supprimer</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>Aucune location existante</p>
+    {% endif %}
+    <div class="text-center">
+        <a href="/loue/add" class="btn btn-success">Ajouter une location</a>
+    </div>
+{% endblock %}

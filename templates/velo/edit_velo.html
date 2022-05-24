@@ -1,0 +1,43 @@
+{%  extends  'layout.html' %}
+
+{% block title %}
+    <title>Modifier un vélo</title>
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h2>Modifier un vélo</h2>
+        {% if error %}
+            <p class="error"><strong>Error : </strong>{{ error }}</p>
+        {% endif %}
+        <form method="post" action="/velo/edit">
+            <fieldset>
+                <legend class="text-center">Modifier un velo</legend>
+                <input type="hidden" name="id_velo" value="{{ velo.id_velo }}">
+                <label for="date_achat">Date d'achat</label>
+                <input type="date" size="18" name="date_achat" value="{{ velo.date_achat }}">
+                <br>
+                <label for="prix_par_mois">Prix de location(par mois)</label>
+                <input type="number" size="18" value="{{ velo.prix_par_mois }}" name="prix_par_mois">
+                <br>
+                <label for="code_marque">Marque :</label>
+                <select name="code_marque" required>
+                    {% for marque in marques %}
+                        <option value="{{ marque.code_marque }}" {% if velo.code_marque is defined and marque.code_marque == velo.code_marque %}selected{% endif %}>
+                            {{ marque.libelle_marque }}</option>
+                    {% endfor %}
+                </select>
+                <br>
+                <label for="type_velo">Type de vélo</label>
+                <select name="type_velo" required>
+                    {% for type in type_velo %}
+                        <option value="{{ type.id_type_velo }}" {% if velo.id_type_velo is defined and type.id_type_velo == velo.id_type_velo %}selected{% endif %}>
+                            {{ type.libelle_type }}</option>
+                    {% endfor %}
+                </select>
+                <br>
+                <input type="submit" value="Modifier" name="Valider">
+            </fieldset>
+        </form>
+    </div>
+{% endblock %}

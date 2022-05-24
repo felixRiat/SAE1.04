@@ -1,0 +1,34 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    <title>Modifier une réparation</title>
+{% endblock %}
+
+{% block body %}
+  <h2>Modification d'une réparation</h2>
+  {% if error %}
+    <p class=error><strong>Error:</strong> {{ error }}
+  {% endif %}
+  <form method="post" action="/reparation/edit">
+    <fieldset>
+        <legend>Modifier une réparation</legend>
+        {% for ligne in reparation %}
+            <input type="hidden" name="id_reparation" value="{{ ligne.id_reparation }}" id="id_reparation">
+            <label for="libelle_reparation">Libelle de la réparation</label><br>
+            <input type="text" name="libelle_reparation" value="{{ ligne.libelle_reparation }}" id="libelle_reparation">
+            <br>
+            <label for="date_reparation">Date de réparation</label><br>
+            <input type="date" name="date_reparation" value="{{ ligne.date_reparation }}" id="date_reparation">
+            <br>
+            <label for="descriptif">Description :</label><br>
+            <textarea placeholder="décrire la réparation" id="descriptif" name="descriptif">{{ ligne.descriptif }}</textarea>
+            <br>
+            <label for="id_velo">Identifiant du vélo</label><br>
+            <input type="text" name="id_velo" value="{{ ligne.id_velo }}" id="id_velo">
+            <br>
+            <button type="submit" class="btn btn-success">Valider</button>
+            <button type="reset" class="btn btn-secondary">Réinitialiser</button>
+        {% endfor %}
+    </fieldset>
+  </form>
+{% endblock %}

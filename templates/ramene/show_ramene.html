@@ -1,0 +1,57 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    <title>Afficher les retours de vélos</title>
+{% endblock %}
+
+{% block body %}
+    <h1 class="text-success text-center">Retours</h1>
+    <form method="post" action="/ramene/show">
+        <div class="container mb-5 bg-light">
+            <h2 class="text-primary text-center">Etat</h2>
+            <p>Cet état sert à voir le nombre de vélos disponibles à la date sélectionnée.
+                Il est possible de filtrer cet état en modifiant la date durant laquelle les vélos devront être comptés.</p>
+            <div class="row">
+                <div class="col-xl-3"></div>
+                <div class="col-xl-6 text-center">
+                    <label for="date">Date</label>
+                    <input type="date" name="date" id="date" class="form-control">
+                </div>
+                <div class="col-xl-3"></div>
+                <div class="text-center">
+                    <button type="submit" class="btn btn-success">Afficher</button>
+                </div>
+            </div>
+            <h5 class="text-center mb-5">Nombre de vélo(s) disponible(s) pour cette date (<span>{{ selected_date }}</span>) : <span>{{ etat.nb_velo }}</span></h5>
+        </div>
+    </form>
+    <table class="table text-center">
+        <thead class="bg-light">
+            <tr>
+                <th>id_velo</th>
+                <th>id_etudiant</th>
+                <th>date_retour</th>
+                <th>paiement</th>
+                <th>Opérations</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for ligne in ramene %}
+                <tr>
+                    <td>{{ ligne.id_velo }}</td>
+                    <td>{{ ligne.id_etudiant }}</td>
+                    <td>{{ ligne.date_retour }}</td>
+                    <td>{{ ligne.paiement }} €</td>
+                    <td>
+                        <a href="/ramene/edit/{{ ligne.id_velo }}/{{ ligne.id_etudiant }}/{{ ligne.date_retour }}" class="btn btn-primary">Modifier</a>
+                        <a href="/ramene/delete?id_velo={{ ligne.id_velo }}&amp;id_etudiant={{ ligne.id_etudiant }}&amp;date_retour={{ ligne.date_retour }}" onclick="return confirm('Are you sure?')"
+                           class="btn btn-primary">Supprimer</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <div class="text-center">
+        <a href="/ramene/add" class="btn btn-success">Ajouter un retour</a>
+    </div>
+{% endblock %}

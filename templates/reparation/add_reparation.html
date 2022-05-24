@@ -1,0 +1,39 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    <title>Ajouter une réparation</title>
+{% endblock %}
+
+{% block body %}
+  <h2>Ajout d'une réparation</h2>
+  {% if error %}
+    <p class=error><strong>Error:</strong> {{ error }}
+  {% endif %}
+  <form method="post" action="/reparation/add">
+    <fieldset>
+        <legend>Créer une réparation</legend>
+        <label for="libelle_reparation">Libelle de la réparation</label>
+        <br>
+        <input id="libelle_reparation" type="text" name="libelle_reparation" size="18" value="" placeholder="Saisir le libelle de la réparation">
+        <br>
+        <label for="date_reparation">Date de réparation</label>
+        <br>
+        <input id="date_reparation" type="date" size="18" value="" name="date_reparation" placeholder="Saisissez la date de réparation">
+        <br>
+        <label for="descriptif">Descriptif</label>
+        <br>
+        <textarea placeholder="Saisissez une brève description" name="descriptif"></textarea>
+        <br>
+        <label for="id_velo">Identifiant du vélo</label><br>
+        <select name="id_velo" id="id_velo">
+            <option value="" disabled selected hidden>Choisissez un id de vélo</option>
+            {% for id in velo %}
+                <option value="{{ id.id_velo }}">{{ id.id_velo }}</option>
+            {% endfor %}
+        </select>
+        <br>
+        <button type="submit" class="btn-success">Créer</button>
+        <button type="reset" class="btn-secondary">Réinitialiser</button>
+    </fieldset>
+  </form>
+{% endblock %}

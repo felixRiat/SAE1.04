@@ -1,0 +1,66 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    <title>Modifier une location</title>
+{% endblock %}
+
+{% block body %}
+    <form method="post" action="/loue/edit">
+    <fieldset>
+        <legend class="text-center">Modifier une location</legend>
+        <input type="hidden" name="id_velo_base" id="id_velo_base" value="{{ loue.id_velo }}">
+        <input type="hidden" name="id_etudiant_base" id="id_etudiant_base" value="{{ loue.id_etudiant }}">
+        <input type="hidden" name="date_base" id="date_base" value="{{ loue.date_location }}">
+        <div class="container text-center">
+            <div class="row mb-4">
+                <div class="col-xl-6">
+                    <div class="card">
+                        <label for="id_velo">id_velo</label>
+                        <select name="id_velo" id="id_velo" class="form-control">
+                            {% for id in velo %}
+                                {% if id.id_velo == loue.id_velo %}
+                                    <option value="{{ id.id_velo }}" selected="selected">{{ id.id_velo }}</option>
+                                {% else %}
+                                    <option value="{{ id.id_velo }}">{{ id.id_velo }}</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="col-xl-6">
+                    <div class="card">
+                        <label for="id_etudiant">id_etudiant</label>
+                        <select name="id_etudiant" id="id_etudiant" class="form-control">
+                            {% for id in etudiant %}
+                                {% if id.id_etudiant == loue.id_etudiant %}
+                                    <option value="{{ id.id_etudiant }}" selected="selected">{{ id.id_etudiant }}</option>
+                                {% else %}
+                                    <option value="{{ id.id_etudiant }}">{{ id.id_etudiant }}</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-4">
+                <div class="col-xl-6">
+                    <div class="card">
+                        <label for="date">date_location</label>
+                        <input type="date" name="date" id="date" value="{{ loue.date_location }}" class="form-control">
+                    </div>
+                </div>
+                <div class="col-xl-6">
+                    <div class="card">
+                        <label for="caution">Caution</label>
+                        <input type="number" name="caution" id="caution" step="0.5" value="{{ loue.caution }}" class="form-control">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="text-center">
+            <button type="submit" class="btn btn-success">Modifier</button>
+            <button type="reset" class="btn btn-secondary">Réinitialiser</button>
+        </div>
+    </fieldset>
+  </form>
+{% endblock %}

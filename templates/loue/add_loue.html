@@ -1,0 +1,57 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    <title>Ajouter une location</title>
+{% endblock %}
+
+{% block body %}
+    <form method="post" action="/loue/add">
+    <fieldset>
+        <legend class="text-center">Ajouter une location</legend>
+        <div class="container text-center">
+            <div class="row mb-4">
+                <div class="col-xl-6">
+                    <div class="card">
+                        <label for="id_velo">id_velo</label>
+                        <select name="id_velo" id="id_velo" class="form-control">
+                            <option value="" disabled selected hidden>Choisissez un id de vélo</option>
+                            {% for id in velo %}
+                                <option value="{{ id.id_velo }}">{{ id.id_velo }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="col-xl-6">
+                    <div class="card">
+                        <label for="id_etudiant">id_etudiant</label>
+                        <select name="id_etudiant" id="id_etudiant" class="form-control">
+                            <option value="" disabled selected hidden>Choisissez un id d'étudiant</option>
+                            {% for id in etudiant %}
+                                <option value="{{ id.id_etudiant }}">{{ id.id_etudiant }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-4">
+                <div class="col-xl-6">
+                    <div class="card">
+                        <label for="date">date_location</label>
+                        <input type="date" name="date" id="date" class="form-control">
+                    </div>
+                </div>
+                <div class="col-xl-6">
+                    <div class="card">
+                        <label for="caution">Caution</label>
+                        <input type="number" name="caution" id="caution" step="0.5" placeholder="Choisissez une caution" class="form-control">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="text-center">
+            <button type="submit" class="btn btn-success">Ajouter</button>
+            <button type="reset" class="btn btn-secondary">Réinitialiser</button>
+        </div>
+    </fieldset>
+  </form>
+{% endblock %}

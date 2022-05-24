@@ -1,0 +1,67 @@
+{%  extends  'layout.html' %}
+
+{% block title %}
+    <title>Vélos</title>
+{% endblock %}
+
+{% block body %}
+    <h2>Nombre de vélo par type</h2>
+    <div class="container">
+    <table class="table table-bordered border-secondary">
+        <thead>
+        <tr>
+            <th>Type</th><th>Nombre</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% if velo_type | length >= 1 %}
+            {% for ligne in velo_type %}
+                <tr>
+                <td>{{ ligne.libelle_type }}</td>
+                <td>{{ ligne.NB_velo_total }}</td>
+                </tr>
+            {% endfor %}
+        {% else %}
+            <tr>
+            <td>Pas de velo</td>
+            </tr>
+        {% endif %}
+        </tbody>
+    </table>
+    </div>
+
+    <h2>Afficher les vélos</h2>
+    <a class="border border-2 border-info rounded-pill d-block p-2 h-auto" href="/velo/add">Ajouter un vélo</a>
+    <div class="container">
+    <table class="table table-bordered border-secondary">
+        <thead>
+        <tr>
+            <th>Id</th><th>Date Achat</th><th>Prix location(€/mois)</th><th>Marque</th><th>Type</th><th>Opération</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        {% if velo | length >= 1 %}
+            {% for ligne in velo %}
+                <tr>
+                <td>{{ ligne.id_velo }}</td>
+                <td>{{ ligne.date_achat }}</td>
+                <td>{{ ligne.prix_par_mois }}</td>
+                <td>{{ ligne.libelle_marque }}({{ ligne.code_marque }})</td>
+                <td>{{ ligne.libelle_type }}({{ ligne.id_type_velo }})</td>
+                <td>
+                    <a class="border border-2 border-info rounded-pill d-block p-2 h-auto" href="/velo/edit/{{ ligne.id_velo }}">editer</a>
+                    <a class="border border-2 border-info rounded-pill d-block p-2 h-auto" href="/velo/delete?id={{ ligne.id_velo }}" onclick="return confirm('Are you sure ?')">supprimer</a>
+                </td>
+                </tr>
+            {% endfor %}
+        {% else %}
+            <tr>
+            <td>Pas de velo</td>
+            </tr>
+        {% endif %}
+        </tbody>
+    </table>
+    </div>
+
+{% endblock %}
